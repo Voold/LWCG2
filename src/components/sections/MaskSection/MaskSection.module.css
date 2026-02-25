@@ -1,0 +1,24 @@
+.sectionBody {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  touch-action: none;
+}
+.mainArea {
+  user-select: none;
+  margin-top: calc( 50px);
+  width: auto;
+  height: auto;
+  background-color: rgba(var(--white), 0.5);
+  border-radius: 20px;
+  border: 1px solid rgb(var(--primary-color));
+}
+
+@media (width <= 320px) {
+  .sectionBody {
+    width: 320px;
+  }
+}

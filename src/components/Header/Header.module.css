@@ -1,0 +1,91 @@
+.sectionBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50px;
+  background-color: rgba(var(--white), 0.3);
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.toggleContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 2px;
+  background-color: rgba(var(--white), 0.6);
+}
+
+.toggleRadio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.toggleLabel {
+  position: relative;
+  z-index: 2;
+  color: rgb(var(--text-color));
+  font-weight: 500;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggleOverlay {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1;
+  width: calc(33.333% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(var(--primary-color));
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.toggleRadio:nth-of-type(1):checked ~ .toggleOverlay {
+  transform: translateX(0);
+}
+
+.toggleRadio:nth-of-type(2):checked ~ .toggleOverlay {
+  transform: translateX(calc(100% + 4px));
+}
+
+.toggleRadio:nth-of-type(3):checked ~ .toggleOverlay {
+  transform: translateX(calc(200% + 8px));
+}
+
+.toggleRadio:nth-of-type(1):checked + .toggleLabel,
+.toggleRadio:nth-of-type(2):checked + .toggleLabel,
+.toggleRadio:nth-of-type(3):checked + .toggleLabel {
+  color: rgb(var(--total-white));
+  font-weight: 600;
+}
+
+.toggleLabel:hover {
+  color: rgba(var(--text-color),0.7);
+}
+
+
+@media (width <= 320px) {
+  body {
+    width: 320px
+  }
+  .sectionBody {
+    width: 320px;
+  }
+}
