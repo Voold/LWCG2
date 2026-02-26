@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch {
+  --height: 28px;
+  --width: 54px;
+  --padding: 3px;
+  --circle-size: calc(var(--height) - (var(--padding) * 2));
+  
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  cursor: pointer;
+}
+
+.checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(var(--secondary-color));
+  border-radius: var(--height);
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--padding);
+  opacity: 0.8;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: var(--circle-size);
+  width: var(--circle-size);
+  left: var(--padding);
+  background-color: rgb(var(--primary-color));
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+  opacity: 1;
+}
+
+.checkbox:checked + .slider::before {
+  transform: translateX(calc(var(--width) - var(--circle-size) - (var(--padding) * 2)));
+}
+
+.checkbox:focus-visible + .slider {
+  outline: 2px solid rgb(var(--primary-color));
+  outline-offset: 2px;
+}

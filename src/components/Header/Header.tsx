@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import type { ChangeEvent } from 'react';
 import styles from "./Header.module.css";
+import ThemeToggler from "../ThemeToggler/ThemeToggler";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -44,6 +45,9 @@ const Header = () => {
         <label htmlFor="r3" className={styles.toggleLabel}>Mask</label>
 
         <div className={styles.toggleOverlay} />
+      </div>
+      <div className={styles.themeWrapper}>
+        <ThemeToggler />
       </div>
     </header>
   );

@@ -1,13 +1,48 @@
 .xray-container {
   touch-action: none;
   position: relative;
-  width: 100%;
+  width: clamp(280px, 30vw, 962px);
+  aspect-ratio: 962 / 1024;
   max-width: 600px; 
+  max-height: 80vh;
   overflow: hidden;
   line-height: 0;
   border-radius: 20px;
 
   z-index: 100;
+
+  .base-img, .x-ray-area {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  &.is-ready {
+    background: transparent;
+    .base-img, .x-ray-area {
+      opacity: 1;
+    }
+  }
+
+  // Стили для лоадера
+  .xray-loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: white;
+    font-family: sans-serif;
+  }
+
+  .xray-loader-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+  }
 
   .base-img {
     width: 100%;
@@ -45,6 +80,11 @@
 
 @media (width <= 320px) {
   .xray-container {
-    width: 320px;
+    width: 280px;
   }
 }
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }

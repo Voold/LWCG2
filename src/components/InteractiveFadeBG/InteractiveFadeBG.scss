@@ -11,98 +11,100 @@
 }
 
 .gradient-container {
-  user-select: none;
-  min-height: 100vh;
-  width: 100vw;
   position: absolute;
-  overflow: hidden;
   top: 0;
   left: 0;
   z-index: -10;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
 
   filter: url('#goo');
+  user-select: none;
   
 
   .morphing-blob {
     position: absolute;
-    left: var(--mouse-x);
     top: var(--mouse-y);
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle at center, var(--color-3) 0%, transparent 50%);
+    left: var(--mouse-x);
+    z-index: 2;
+    width: 300px;
+    height: 300px;
+
     background: radial-gradient(
       circle at center, 
       var(--color-stop-1) 0%, 
       var(--color-stop-2) 10%, 
-      rgba(0, 0, 0, 0.1) 20%, 
-      transparent 50%
+      rgba(0, 0, 0, 0.1) 40%, 
+      transparent 60%
     );
-    filter: blur(50px);
-    pointer-events: none;
+    /* filter: blur(5px) hue-rotate(#{random(360)}deg); */
+    filter: blur(5px);
     animation:
-      gradientShift 6s ease-in-out infinite,
-      morph 12s ease-in-out infinite;
-    z-index: 2;
+      gradientShift 6s ease-in-out infinite;
+    pointer-events: none;
+    translate: -50% -50%;
+    animation-delay: -#{random(20)}s;
+    opacity: 0.8;
   }
 }
 
-@mixin blob-style($size, $duration, $delay: 0s) {
+@mixin blob-style($size, $xShift, $yShift, $duration, $delay: 0s, $opacity: 0.9) {
   position: absolute;
   width: $size;
   height: $size;
-  
-  // Плавное расплывание: 
-  // 0.9 в центре -> 0.1 к 70% -> 0 на 100%
+  opacity: $opacity;
+
   background: radial-gradient(
     circle at center, 
-    var(--color-stop-1) 0%, 
-    var(--color-stop-2) 40%, 
-    rgba(0, 0, 0, 0.1) 70%, 
-    transparent 100%
+    var(--color-stop-1) 1%, 
+    var(--color-stop-2) 30%, 
+    rgba(0, 0, 0, 0.1) 60%, 
+    transparent 80%
   );
 
-  filter: blur(90px); 
-  
-  mix-blend-mode: screen;
-  opacity: 0.8; // Общая прозрачность слоя для мягкости
+  filter: blur(15px);
+  transform-origin: $xShift $yShift;
   
   animation: 
-    move #{$duration} linear infinite, 
-    morphBubble #{$duration * 0.7} ease-in-out infinite alternate,
+    move-round #{$duration} linear infinite, 
+    move-vertical #{$duration* 2.5} linear infinite,
+    scaling #{$duration* 1} linear infinite,
     gradientShift #{$duration * 2} ease-in-out infinite;
     
   animation-delay: $delay;
+  animation-delay: -#{random(20)}s;
+  rotate: -100deg;
+  
+  mix-blend-mode: hard-light;
 }
-.bg-1 { @include blob-style(max(100px, 22vw), 25s, 0s); top: -20%; left: -20%; }
-.bg-2 { @include blob-style(max(300px, 19vw), 30s, 5s); bottom: -10%; right: -10%; }
-.bg-3 { @include blob-style(max(400px, 32vw), 35s, 1s); top: 10%; left: 10%; }
-.bg-4 { @include blob-style(max(300px, 35vw), 28s, -2s); bottom: -20%; left: -10%; }
-.bg-5 { @include blob-style(max(500px, 20vw), 25s, -2s); top: 10%; right: 15%; }
+.bg-1 { top: 10vh; right: 10vw; @include blob-style(clamp(200px, 42vw, 1700px),+5vw, -10vh, 23s, 0.2s, 0.8); }
+.bg-2 { top: 40vh; right: 20vw; @include blob-style(clamp(400px, 52vw, 2100px),-5vw, -10vh, 105s, 0.1s, 0.6);}
+.bg-3 { top: 110vh; right: -35vw; @include blob-style(clamp(600px, 62vw, 2500px), 25vw, -10vh, 35s, 0.5s, 0.7);}
+.bg-4 { top: 0vh; left: 0vw; @include blob-style(clamp(200px, 52vw, 1700px), 1vw, 6vh, 18s, 0.3s, 1.6);}
 
 
-@keyframes move {
-  0% { translate: 0 0; rotate: 0deg; scale: 1; }
-  20% { translate: 18vw -2vh; rotate: 45deg; scale: 1.1; }
-  40% { translate: 0vw 25vh; rotate: -90deg; scale: 0.9; }
-  60% { translate: 25vw 15vh; rotate: 180deg; scale: 1.2; }
-  80% { translate: -5vw 2vh; rotate: 270deg; scale: 0.8; }
-  100% { translate: 0 0; rotate: 360deg; scale: 1; }
-}
-
-@keyframes morph {
-  0%, 100% { border-radius: 12% 58% 90% 30% / 45% 45% 55% 55%; transform: translate(-51%, -49%) scale(1); }
-  50% { border-radius: 10% 70% 70% 10% / 82% 35% 65% 98%; transform: translate(-52%, -49%) scale(1.1); }
-}
-
-@keyframes morphBubble {
-  0%, 100% { 
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; 
-    scale: 1; 
+@keyframes move-round {
+  0% {
+    rotate: -100deg;
   }
-  50% { 
-    border-radius: 30% 70% 70% 30% / 82% 35% 65% 18%; 
-    scale: 1.2; 
+  25% {rotate: 0deg }
+  50% {rotate: 110deg }
+  100% {
+    rotate: 220deg;
   }
+}
+
+@keyframes move-vertical {
+  0%, 100% { translate: 0vw 0vh; }
+  25% { translate: 0vw -3vh; }
+  50% { translate: 3vw 0vh; }
+}
+
+@keyframes scaling {
+  0%, 100% { scale: 1; }
+  25% { scale: 0.8; }
+  50% { scale: 1.4; }
 }
 
 @keyframes gradientShift {
@@ -127,12 +129,5 @@
 @media (width <= 320px) {
   .gradient-container {
     width: 320px;
-    height: 400vh;
-  }
-}
-
-@media (max-width: 768px), (pointer: coarse) {
-  .gradient-container {
-    filter: none;
   }
 }

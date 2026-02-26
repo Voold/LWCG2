@@ -9,6 +9,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10;
 }
 
 .toggleContainer {
@@ -80,6 +81,12 @@
   color: rgba(var(--text-color),0.7);
 }
 
+.themeWrapper {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 @media (width <= 320px) {
   body {
@@ -88,4 +95,8 @@
   .sectionBody {
     width: 320px;
   }
+  .toggleContainer {
+    max-width: 300px;
+  }
+
 }

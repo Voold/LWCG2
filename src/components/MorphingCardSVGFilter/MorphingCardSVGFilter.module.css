@@ -1,6 +1,8 @@
 .wrapper {
   position: relative;
-  width: 300px;
+  max-width: 300px;
+  width: clamp(200px, 60vh, 300px);
+  max-height: 50vh;
   border-radius: 20px;
   padding: 20px;
   background: white;
@@ -15,13 +17,12 @@
   aspect-ratio: 1 / 1;
 }
 
-/* on narrow screens or mobile UA we disable heavy SVG filters to reduce CPU cost
-   while keeping the basic morphing/transition behaviour via opacity/scale */
+/* 
 @media (max-width: 768px), (pointer: coarse) {
   .container {
     filter: none;
   }
-}
+} */
 
 .above {
   position: absolute;
@@ -47,22 +48,18 @@
 @keyframes morphFade {
   0% { 
     opacity: 0; 
-    filter: blur(5px); 
     transform: scale(0.95); 
   }
   15% { 
     opacity: 1; 
-    filter: blur(0px); 
     transform: scale(1); 
   }
   25% { 
     opacity: 1; 
-    filter: blur(0px); 
     transform: scale(1); 
   }
   45% { 
     opacity: 0; 
-    filter: blur(5px); 
     transform: scale(1.05); 
   }
   100% { 

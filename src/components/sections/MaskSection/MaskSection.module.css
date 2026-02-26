@@ -20,6 +20,10 @@
 
 @media (width <= 320px) {
   .sectionBody {
-    width: 300px;
+    width: 320px;
+  }
+  .mainArea {
+    max-width: none;
+    width: 280px;
   }
 }

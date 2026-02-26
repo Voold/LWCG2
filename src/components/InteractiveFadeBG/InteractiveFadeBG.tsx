@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const InteractiveFadeBG = () => {
   const mouse = useRef({ x: 0, y: 0 });
-  const speedSmooth = 0.05; 
+  const speedSmooth = 0.1; 
   const [smooth, setSmooth] = useState({ x: 0, y: 0 });
 
 useEffect(() => {
@@ -42,7 +42,6 @@ useEffect(() => {
       <div className="bg-2"></div>
       <div className="bg-3"></div>
       <div className="bg-4"></div>
-      <div className="bg-5"></div>
 
       {/* Шар за курсором */}
       <div className="morphing-blob"></div>
