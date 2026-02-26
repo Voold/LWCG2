@@ -11,7 +11,7 @@ const GlobalFilters = () => (
   >
     <defs>
       <filter id="goo">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="70" result="blur" />
+        <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
         <feColorMatrix 
           in="blur" 
           mode="matrix" 

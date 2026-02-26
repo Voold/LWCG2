@@ -15,6 +15,14 @@
   aspect-ratio: 1 / 1;
 }
 
+/* on narrow screens or mobile UA we disable heavy SVG filters to reduce CPU cost
+   while keeping the basic morphing/transition behaviour via opacity/scale */
+@media (max-width: 768px), (pointer: coarse) {
+  .container {
+    filter: none;
+  }
+}
+
 .above {
   position: absolute;
   top: 0;
