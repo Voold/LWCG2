@@ -5,8 +5,8 @@
 }
 
 .switch {
-  --height: 28px;
-  --width: 54px;
+  --height: 25px;
+  --width: 50px;
   --padding: 3px;
   --circle-size: calc(var(--height) - (var(--padding) * 2));
   
